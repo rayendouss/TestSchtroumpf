@@ -198,4 +198,31 @@ router.get("/remove/:id/:idp" , function (req,res,next) {
 
   })
 })
+router.post("/addFriend/:id", function (req,res,next) {
+  var user = new User({
+    name: req.body.name,
+    password: req.body.password
+  })
+  user.save((err, result) => {
+
+    var sch = new Schtroumpf({
+      age: req.body.age,
+      famille: req.body.famille,
+      race: req.body.race,
+      nourriture: req.body.nourriture,
+      user: result._id
+
+
+    })
+
+    sch.save((err, resu) => {
+            res.json({"msg":sch._id})
+
+
+    })
+
+  })
+})
+
+
 module.exports = router;
